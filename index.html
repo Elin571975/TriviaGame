@@ -1,0 +1,54 @@
+<DOCTYPE! html>
+
+<html>
+
+<head>
+
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+       
+  <title>Trivia</title>
+
+</head>
+
+<body background = "assets/images/backgroundFinal.jpg">
+
+<h1> Trivia! Trivia! Trivia! </h1>
+
+<div class = "startPage">
+
+  <article>
+  It is time for The Oscars! <br>
+  Press START button and 5 random questions will challenge your knowledge!<br>
+  You have 30 seconds to play each round, only 1 correct answer for each question. <br>
+  Have fun!
+  </article>
+
+  <button type ="button" id="startBtn" onclick="runTheGame()"> START </button>
+
+</div>
+
+<div class = "game">
+
+  <p id = "timer"></p>
+  <div class = "trivia"></div>
+  
+</div>
+
+<div class = "result">
+
+    <p id="allDone"></p>
+    <div class = "score">
+       <p id="correct"></p>
+       <p id="incorrect"></p>
+       <p id="unanswered"></p>
+    </div>
+
+</div>
+
+<script type="text/javascript" src="assets/javascript/app.js"></script>
+
+</body>
+</html>    
