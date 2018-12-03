@@ -2,33 +2,34 @@ var correct = 0;
 var incorrect = 0;
 var unaswered = 0;
 var runningQuestionIndex;
+var selectedQuestios;
+var q;
 
-//=================================================================================
+//============================================================================================================
 // INITIALIZE AND MAKE THE GAME RUN
 
 function runTheGame(){
   $(".startPage").css('display','none');   // also can use -> hide();
   $("#doneBtn").css('display','none');
 
-  countDown (10,"timer");
+  countDown (30,"timer");
 
   buildQuestions();
 
+  checkAnswer();
+
   $("#doneBtn").click(function(){
     
-    checkAnswer();
-
     $(".game").css('display','none'); 
 
     $("#allDone").html("All Done!!!");
     $("#correct").html("Correct Answers: " + correct + " out of 5 questions in total");
-    $("#incorrect").html("Uncorrect Answers: " + incorrect + " out of 5 questions in total");
+    $("#incorrect").html("Incorrect Answers: " + incorrect + " out of 5 questions in total");
     $("#unanswered").html("Unsaswered Questions: " + correct + " out of 5 questions in total");
   });
-
 }
 
-//=================================================================================
+//============================================================================================================
 //GENERATE RANDOM QUESTIONS
 
 function buildQuestions(){
@@ -37,38 +38,43 @@ function buildQuestions(){
 
       //generate the index to look into the array of objects
       runningQuestionIndex = Math.floor(Math.random() * 9) + 0;
-      console.log(runningQuestionIndex);
+      console.log("index is " + runningQuestionIndex);
    
-      var q = triviaQuestions[runningQuestionIndex];
-      console.log(q);
-
+      q = triviaQuestions[runningQuestionIndex];
+      console.log("q is " + q);
+      
       var qBox = $("<div>");
-        //   qBox.attr({"class": 'question'});
+          qBox.attr({"class": 'question'});
           $('<p id = "question">' +q.question+ '</p>').appendTo('.trivia');
-        //   $('.question').html(q.question); 
 
       var aBox = $("<div>");
-        //   aBox.attr({"class": 'choiceA'});
-          $('<input type="radio" id="radioBtn">' +q.choiceA +'</input>').appendTo('.trivia');
-
+        //same name for input type radio groups all options and only one can be checked
+        aBox.attr({"class": 'choiceA'});
+        $('<input type="radio" name="radioBtn' + i + ' " id="radioBtnA">' +q.choiceA +'</input>').appendTo('.trivia');
+         
       var bBox = $("<div>");
-        //   bBox.attr({"class": 'choiceB'});
-          $('<input type="radio" id="radioBtn">' +q.choiceB+ '</input>').appendTo('.trivia');
+          bBox.attr({"class": 'choiceB'});
+          $('<input type="radio" name="radioBtn' + i + ' " id="radioBtnB">' +q.choiceB+ '</input>').appendTo('.trivia');
   
       var cBox = $("<div>");
-        //   cBox.attr({"class": 'choiceC'});
-          $('<input type="radio" id="radioBtn">' +q.choiceC+ '</input>').appendTo('.trivia');
+          cBox.attr({"class": 'choiceC'});
+          $('<input type="radio" name="radioBtn' + i + ' " id="radioBtnC">' +q.choiceC+ '</input>').appendTo('.trivia');
           
       var dBox = $("<div>");
-        //   dBox.attr({"class": 'choiceD'});
-          $('<input type="radio" id="radioBtn">' +q.choiceD+ '</input>').appendTo('.trivia');
-           }  
+          dBox.attr({"class": 'choiceD'});
+          $('<input type="radio" name="radioBtn' + i + ' " id="radioBtnD">' +q.choiceD+ '</input>').appendTo('.trivia');
+     
+      selectedQuestions =+ q; 
+         
+      }  
 
+    console.log("selectedQuestions is " + selectedQuestions);
+    
     $('<input type="button" id="doneBtn" value="DONE"/>').appendTo('.trivia');         
-
     }
 
-//=================================================================================
+
+//============================================================================================================
 // TIMER FUNCTION
 
 function countDown (secs, elem){
@@ -82,23 +88,48 @@ function countDown (secs, elem){
     var timer = setTimeout('countDown('+secs+', "'+elem+'")', 1000);
 }
 
-//=================================================================================
+//============================================================================================================
 // CHECK ANSWERS
 
 function checkAnswer(){
 
+  for (j=0; j< 5; j++) {
+    
+    var c = selectedQuestions[j];
+
+    var checkedA = document.getElementById("radioBtnA").checked;
+    var checkedB = document.getElementById("radioBtnB").checked;
+    var checkedC = document.getElementById("radioBtnC").checked;
+    var checkedD = document.getElementById("radioBtnD").checked;
+
+    //test if question was unanswered
+    if(checkedA == false && checkedB == false && checkedC== false  && checkedD== false ){
+       unanswered ++;
+    }
+
+   //test what was checked and if it is the correct answer
+    if (checkedA = true && q.answer == "A"){
+       correct++;
+    }
+
+    if (checkedB = true && q.answer == "B"){
+       correct++;
+    }
+
+    if (checkedC = true && q.answer == "C"){
+       correct++;
+    }  
+
+    if (checkedD = true && q.answer == "D"){
+       correct++;
+    }
+    else{
+       incorrect ++;
+    }
+  }
 }
 
-
-
-
-
-
-
-
-
-
-//===============================================================================
+//============================================================================================================
 // TRIVIA DATABASE
 
 var triviaQuestions = [
