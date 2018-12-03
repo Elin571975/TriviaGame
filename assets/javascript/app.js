@@ -1,9 +1,8 @@
 var correct = 0;
 var incorrect = 0;
 var unaswered = 0;
-var runningQuestionIndex;
-var selectedQuestios;
-var q;
+var runningQuestionIndex = 0;
+var selectedQuestios =[];
 
 //============================================================================================================
 // INITIALIZE AND MAKE THE GAME RUN
@@ -16,9 +15,9 @@ function runTheGame(){
 
   buildQuestions();
 
-  checkAnswer();
-
   $("#doneBtn").click(function(){
+    
+    checkAnswer();
     
     $(".game").css('display','none'); 
 
@@ -40,8 +39,9 @@ function buildQuestions(){
       runningQuestionIndex = Math.floor(Math.random() * 9) + 0;
       console.log("index is " + runningQuestionIndex);
    
-      q = triviaQuestions[runningQuestionIndex];
+      var q = triviaQuestions[runningQuestionIndex];
       console.log("q is " + q);
+      console.log(triviaQuestions[i]);
       
       var qBox = $("<div>");
           qBox.attr({"class": 'question'});
@@ -97,30 +97,30 @@ function checkAnswer(){
     
     var c = selectedQuestions[j];
 
-    var checkedA = document.getElementById("radioBtnA").checked;
-    var checkedB = document.getElementById("radioBtnB").checked;
-    var checkedC = document.getElementById("radioBtnC").checked;
-    var checkedD = document.getElementById("radioBtnD").checked;
+    var checkedA = $("selectedQuestions.choiceA").checked;
+    var checkedB = $("selectedQuestions.choiceB").checked;
+    var checkedC = $("selectedQuestions.choiceC").checked;
+    var checkedD = $("selectedQuestions.choiceD").checked;
 
     //test if question was unanswered
-    if(checkedA == false && checkedB == false && checkedC== false  && checkedD== false ){
+    if(checkedA == false && checkedB == false && checkedC == false  && checkedD == false ){
        unanswered ++;
     }
 
    //test what was checked and if it is the correct answer
-    if (checkedA = true && q.answer == "A"){
+    if (checkedA = true && selectedQuestoins.answer == "A"){
        correct++;
     }
 
-    if (checkedB = true && q.answer == "B"){
+    if (checkedB = true && selectedQuestoins.answer == "B"){
        correct++;
     }
 
-    if (checkedC = true && q.answer == "C"){
+    if (checkedC = true && selectedQuestoins.answer == "C"){
        correct++;
     }  
 
-    if (checkedD = true && q.answer == "D"){
+    if (checkedD = true && selectedQuestoins.answer == "D"){
        correct++;
     }
     else{
